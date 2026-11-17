@@ -56,7 +56,7 @@ The original notes were normalized in this version:
 - Ubuntu and Debian use the <code>nfs-kernel-server</code> package and service.
 - One sanitized NFS server, client network, and export path are used consistently.
 - The multi-line Helm command is valid and uses a versionable <code>values.yaml</code>.
-- <code>no_root_squash</code> is not enabled by default.
+- The requested <code>no_root_squash</code>, <code>no_all_squash</code>, and <code>insecure</code> options are included explicitly, with their security impact documented.
 - The exported directory is created before the export is activated.
 - The namespace is created idempotently by Helm.
 - Provisioner output is verified from the live cluster instead of hard-coding an old example.
@@ -139,7 +139,7 @@ sudo nano /etc/exports.d/kubernetes-nfs.exports
 Add:
 
 ~~~exports
-/var/nfs/kubernetes 192.0.2.0/24(rw,sync,no_subtree_check,root_squash)
+/var/nfs/kubernetes 192.0.2.0/24(rw,sync,no_subtree_check,no_root_squash,no_all_squash,insecure)
 ~~~
 
 Apply and verify the export:
@@ -150,7 +150,13 @@ sudo exportfs -v
 ~~~
 
 > [!WARNING]
-> Avoid <code>no_root_squash</code> unless a documented workload requirement makes it unavoidable. It allows root on an authorized client to retain root privileges on the exported filesystem.
+> This export intentionally enables <code>no_root_squash</code>. Root processes on an authorized Kubernetes node retain root privileges on the NFS export and can modify or delete any accessible data. Restrict the export to explicitly trusted node addresses, protect the node network, and never expose this export to an untrusted subnet.
+
+> [!CAUTION]
+> The <code>insecure</code> option accepts NFS requests originating from client source ports above 1024, weakening the traditional privileged-port check. Use it only when required by the client environment and compensate with strict firewall rules and a narrowly scoped client subnet.
+
+> [!NOTE]
+> <code>no_all_squash</code> preserves client UID/GID identities instead of mapping every user to the anonymous account. It is normally the default behavior, but is included explicitly here as requested. Consistent UID/GID management across nodes and workloads is therefore important.
 
 ### Firewall
 
@@ -445,7 +451,7 @@ Confirm that the chart repository is reachable and that the cluster can pull the
 - Back up production data independently of the provisioner lifecycle.
 - Test PVC deletion and restoration behavior before selecting a reclaim policy.
 - Use Pod security contexts that match the approved NFS UID/GID strategy.
-- Avoid unrestricted exports and unnecessary <code>no_root_squash</code>.
+- This configuration deliberately uses <code>no_root_squash</code> and <code>insecure</code>; limit access to trusted Kubernetes nodes and enforce the restriction with host and network firewalls.
 - Pin chart and image versions in controlled production environments.
 - A single NFS server is a storage single point of failure unless protected by an HA design.
 - Monitor the provisioner Deployment and alert on unavailable replicas or repeated provisioning errors.
@@ -454,8 +460,9 @@ Confirm that the chart repository is reachable and that the cluster can pull the
 
 - [ ] The NFS server package and service are active.
 - [ ] The export directory exists with approved ownership and permissions.
-- [ ] The export is restricted to the Kubernetes node network.
-- [ ] <code>exportfs -v</code> shows the expected path and options.
+- [ ] The export is restricted to the trusted Kubernetes node network.
+- [ ] The security implications of <code>no_root_squash</code> and <code>insecure</code> have been explicitly approved.
+- [ ] <code>exportfs -v</code> shows the expected path and requested options.
 - [ ] Every eligible Kubernetes node has <code>nfs-common</code>.
 - [ ] Every eligible node can mount the NFS export.
 - [ ] The Helm release is deployed and healthy.
