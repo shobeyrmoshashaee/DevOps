@@ -13,10 +13,15 @@ This area contains storage and database engineering projects focused on availabi
 - Capacity planning, performance tuning, and storage observability
 - Stateful workloads on virtual machines, containers, and Kubernetes
 
+## Projects
+
+| Project | Installation Method | Description |
+|---|---|---|
+| [Kubernetes NFS Dynamic Provisioning](./kubernetes-nfs-subdir-provisioner-helm/) | Helm | NFS server preparation, official NFS Subdirectory External Provisioner chart, StorageClass, PVC testing, and operations |
+
 ## Project Organization
 
-Future projects in this category will be added as independent subdirectories. Each project will include a dedicated README, sanitized source files, configuration examples, deployment instructions, validation steps, troubleshooting guidance, and operational notes.
+Each storage project uses an independent subdirectory with a dedicated README, sanitized source files, deployment instructions, validation, troubleshooting, and operational guidance.
 
-## Current Status
-
-The category structure is ready. Projects will be added progressively after their files and documentation have been reviewed and sanitized.
+> [!NOTE]
+> The future manifest-based NFS provisioner project will be documented separately and clearly labeled as the **Deployment-based** installation method.

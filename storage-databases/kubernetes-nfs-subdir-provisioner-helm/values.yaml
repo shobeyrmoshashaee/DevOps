@@ -1,0 +1,31 @@
+replicaCount: 1
+
+strategyType: Recreate
+
+nfs:
+  server: 192.0.2.50
+  path: /var/nfs/kubernetes
+  mountOptions:
+    - nfsvers=4.1
+  defaultMode: "0770"
+  defaultUid: "65534"
+  defaultGid: "65534"
+  reclaimPolicy: Retain
+
+storageClass:
+  create: true
+  name: nfs-client
+  defaultClass: false
+  allowVolumeExpansion: true
+  reclaimPolicy: Delete
+  archiveOnDelete: true
+  accessModes: ReadWriteMany
+  volumeBindingMode: Immediate
+
+resources:
+  requests:
+    cpu: 25m
+    memory: 32Mi
+  limits:
+    cpu: 200m
+    memory: 128Mi
