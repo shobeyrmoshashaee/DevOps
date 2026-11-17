@@ -19,84 +19,40 @@
 
 <table>
 <tr>
-<td width="50%" valign="top" align="center">
-
-<a href="./kubernetes/"><strong>☸️ Kubernetes &amp; Container Orchestration</strong></a>
-
-<br><br>
-
-<sub>Cluster lifecycle, container orchestration, networking, traffic management, storage integration, scaling, backup, and production operations.</sub>
-
-</td>
-<td width="50%" valign="top" align="center">
-
-<a href="./ci-cd-gitops/"><strong>🚀 CI/CD &amp; GitOps</strong></a>
-
-<br><br>
-
-<sub>Build, test, security scanning, artifact delivery, deployment automation, GitOps, and release strategies.</sub>
-
-</td>
+<td width="29%"><a href="./kubernetes/"><strong>☸️ Kubernetes</strong></a></td>
+<td>Cluster lifecycle, workloads, container orchestration, Calico and other CNI networking, ingress, backup, recovery, security, and day-to-day operations.</td>
 </tr>
 <tr>
-<td width="50%" valign="top" align="center">
-
-<a href="./terraform-ansible-iac/"><strong>🏗️ Terraform, Ansible &amp; Infrastructure as Code</strong></a>
-
-<br><br>
-
-<sub>Infrastructure provisioning, configuration management, reusable modules, roles, inventories, and automation patterns.</sub>
-
-</td>
-<td width="50%" valign="top" align="center">
-
-<a href="./observability-monitoring/"><strong>📊 Observability &amp; Monitoring</strong></a>
-
-<br><br>
-
-<sub>Metrics, logs, traces, dashboards, alerting, capacity visibility, and production troubleshooting.</sub>
-
-</td>
+<td><a href="./ci-cd-gitops/"><strong>🚀 CI/CD &amp; GitOps</strong></a></td>
+<td>Build, test, security scanning, artifact delivery, deployment automation, GitOps workflows, and release strategies.</td>
 </tr>
 <tr>
-<td width="50%" valign="top" align="center">
-
-<a href="./infrastructure-networking/"><strong>🌐 Infrastructure &amp; Networking</strong></a>
-
-<br><br>
-
-<sub>Load balancing, high availability, proxies, routing, DNS, TLS, traffic engineering, and network operations.</sub>
-
-</td>
-<td width="50%" valign="top" align="center">
-
-<a href="./storage-databases/"><strong>💾 Storage &amp; Databases</strong></a>
-
-<br><br>
-
-<sub>Block, file, and object storage, database platforms, replication, backup, recovery, and data reliability.</sub>
-
-</td>
+<td><a href="./terraform-ansible-iac/"><strong>🏗️ Terraform, Ansible &amp; Infrastructure as Code</strong></a></td>
+<td>Infrastructure provisioning, configuration management, reusable modules, roles, inventories, state management, and automation patterns.</td>
 </tr>
 <tr>
-<td width="50%" valign="top" align="center">
-
-<a href="./security-devsecops/"><strong>🔐 Security &amp; DevSecOps</strong></a>
-
-<br><br>
-
-<sub>System hardening, image and code scanning, identity, access control, certificates, secrets, and security automation.</sub>
-
-</td>
-<td width="50%" valign="top" align="center">
-
-<a href="./scripting-automation/"><strong>🛠️ Scripting &amp; Automation</strong></a>
-
-<br><br>
-
-<sub>Bash and Python utilities, operational scripts, health checks, reporting, maintenance, and repetitive-task automation.</sub>
-
-</td>
+<td><a href="./observability-monitoring/"><strong>📊 Observability &amp; Monitoring</strong></a></td>
+<td>Metrics, logs, traces, dashboards, alerting, Zabbix, ELK, capacity visibility, and production troubleshooting.</td>
+</tr>
+<tr>
+<td><a href="./incident-management/"><strong>🚨 Incident Management</strong></a></td>
+<td>Incident response procedures, severity levels, escalation paths, operational runbooks, root cause analysis, and post-incident reviews.</td>
+</tr>
+<tr>
+<td><a href="./storage-databases/"><strong>💾 Storage &amp; Databases</strong></a></td>
+<td>Block, file, and object storage, database platforms, replication, backup, recovery, and data reliability.</td>
+</tr>
+<tr>
+<td><a href="./linux-infrastructure/"><strong>🖥️ Linux Infrastructure</strong></a></td>
+<td>Linux server administration, operating system configuration, HAProxy, Keepalived, DNS, NTP, high availability, and maintenance.</td>
+</tr>
+<tr>
+<td><a href="./security-devsecops/"><strong>🔐 Security &amp; DevSecOps</strong></a></td>
+<td>System hardening, image and code scanning, identity, access control, certificates, secrets, and security automation.</td>
+</tr>
+<tr>
+<td><a href="./scripting-automation/"><strong>🛠️ Scripting &amp; Automation</strong></a></td>
+<td>Bash and Python utilities, operational scripts, health checks, reporting, maintenance, and repetitive-task automation.</td>
 </tr>
 </table>
 
