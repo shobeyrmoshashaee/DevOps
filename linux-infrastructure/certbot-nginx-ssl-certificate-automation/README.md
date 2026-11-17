@@ -1,4 +1,4 @@
-# 🔒 Certbot SSL Certificate Issuance and Automation
+# 🔒 Certbot SSL Certificate Automation for Nginx
 
 A practical Ubuntu and Debian guide for installing Certbot, issuing wildcard certificates with DNS verification, integrating certificates with Nginx, and automating DNS-01 validation through Cloudflare.
 
