@@ -3,9 +3,9 @@
   <strong>فارسی</strong>
 </p>
 
-<h1 dir="rtl" align="right">🔐 نصب گواهی <span dir="ltr">CA</span> سفارشی در <span dir="ltr">Ubuntu</span> و <span dir="ltr">Debian</span></h1>
+<h1 dir="rtl" align="right">🔐 نصب گواهی <span dir="ltr">CA</span> سفارشی در <span dir="ltr">Ubuntu و Debian</span></h1>
 
-<p dir="rtl" align="right">این راهنما روش افزودن گواهی یک مرجع صدور گواهی داخلی یا خصوصی را به <span dir="ltr">Trust Store</span> سیستم‌عامل در <span dir="ltr">Ubuntu</span> و <span dir="ltr">Debian</span> توضیح می‌دهد.</p>
+<p dir="rtl" align="right">این راهنما روش افزودن گواهی یک مرجع صدور گواهی داخلی یا خصوصی را به <span dir="ltr">Trust Store</span> سیستم‌عامل در <span dir="ltr">Ubuntu و Debian</span> توضیح می‌دهد.</p>
 
 > [!IMPORTANT]
 > <p dir="rtl" align="right">تمام نام گواهی‌ها، دامنه‌ها و <span dir="ltr">Endpoint</span>های موجود در این مستند عمومی نمونه هستند. قبل از اجرا، آن‌ها را با مقادیر تأییدشده محیط خود جایگزین کنید.</p>
