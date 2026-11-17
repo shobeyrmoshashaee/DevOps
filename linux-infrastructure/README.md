@@ -18,6 +18,7 @@ A practical collection of Linux infrastructure engineering, administration, high
 | Project | Description |
 |---|---|
 | [Chrony NTP Server and Client Setup](./chrony-ntp-server-client/) | Redundant internal Chrony servers, secured client access, health validation, and troubleshooting |
+| [Custom CA Certificate Trust](./ca-certificate-trust/) | Install, validate, test, rotate, and remove custom CA certificates on Ubuntu and Debian |
 
 ## Project Organization
 
