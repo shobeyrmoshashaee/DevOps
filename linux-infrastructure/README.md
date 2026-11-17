@@ -13,8 +13,12 @@ A practical collection of Linux infrastructure engineering, administration, high
 - Performance analysis, logs, health checks, and reliability
 - Hardening, access controls, backup, and recovery procedures
 
+## Projects
+
+| Project | Description |
+|---|---|
+| [Chrony NTP Server and Client Setup](./chrony-ntp-server-client/) | Redundant internal Chrony servers, secured client access, health validation, and troubleshooting |
+
 ## Project Organization
 
-Each Linux infrastructure project will use its own subdirectory and include architecture notes, sanitized configuration, deployment instructions, validation, troubleshooting, and operational guidance.
-
-> Project directories will be added as implementations are documented.
+Each Linux infrastructure project uses its own subdirectory and includes architecture notes, sanitized configuration, deployment instructions, validation, troubleshooting, and operational guidance.
