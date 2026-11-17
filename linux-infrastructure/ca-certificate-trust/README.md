@@ -1,3 +1,8 @@
+<p align="center">
+  <strong>English</strong> |
+  <a href="./README.fa.md">فارسی</a>
+</p>
+
 # 🔐 Install a Custom CA Certificate on Ubuntu and Debian
 
 A practical guide for adding an internal or private Certificate Authority certificate to the operating system trust store on Ubuntu and Debian systems.
