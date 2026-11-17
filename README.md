@@ -12,11 +12,11 @@ This repository is a structured portfolio of hands-on infrastructure projects. E
 |---|---|
 | [Kubernetes](./kubernetes/) | RKE2 HA, Cilium & Hubble, Envoy Gateway, Calico, HPA/VPA, Velero migration |
 | [CI/CD](./ci-cd/) | GitLab upgrade, GitLab Runner, Argo CD & Kustomize, SonarQube & Trivy |
-| [Observability](./observability/) | VictoriaMetrics, Grafana alerting, Zabbix, Elasticsearch snapshots |
+| [Observability](./observability/) | VictoriaMetrics, Grafana alerting, Zabbix, ELK Stack, Elasticsearch S3 snapshots |
 | [Storage](./storage/) | Longhorn, Rook Ceph, MinIO object storage |
-| [Networking](./networking/) | HAProxy & Keepalived, Envoy Proxy, IPVS for SIP, NGINX |
+| [Infrastructure & Networking](./infrastructure-networking/) | HAProxy & Keepalived, Envoy Proxy, IPVS for SIP, NGINX |
 | [Automation](./automation/) | Ansible infrastructure maintenance, Bash & Python scripts |
-| [Platform Services](./platform-services/) | Nexus Repository, FreeIPA SSH policy, RabbitMQ |
+| [Platform Services](./platform-services/) | Nexus Repository, Jira & Confluence, RabbitMQ |
 
 ## Project Standards
 
