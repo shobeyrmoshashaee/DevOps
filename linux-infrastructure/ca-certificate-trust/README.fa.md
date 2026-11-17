@@ -3,53 +3,74 @@
   <strong>فارسی</strong>
 </p>
 
-<div dir="rtl">
+<h1 dir="rtl" align="right">🔐 نصب گواهی <span dir="ltr">CA</span> سفارشی در <span dir="ltr">Ubuntu</span> و <span dir="ltr">Debian</span></h1>
 
-# 🔐 نصب گواهی CA سفارشی در Ubuntu و Debian
-
-این راهنما روش افزودن گواهی یک مرجع صدور گواهی داخلی یا خصوصی را به Trust Store سیستم‌عامل در Ubuntu و Debian توضیح می‌دهد.
+<p dir="rtl" align="right">این راهنما روش افزودن گواهی یک مرجع صدور گواهی داخلی یا خصوصی را به <span dir="ltr">Trust Store</span> سیستم‌عامل در <span dir="ltr">Ubuntu</span> و <span dir="ltr">Debian</span> توضیح می‌دهد.</p>
 
 > [!IMPORTANT]
-> تمام نام گواهی‌ها، دامنه‌ها و Endpointهای موجود در این مستند عمومی نمونه هستند. قبل از اجرا، آن‌ها را با مقادیر تأییدشده محیط خود جایگزین کنید.
+> <p dir="rtl" align="right">تمام نام گواهی‌ها، دامنه‌ها و <span dir="ltr">Endpoint</span>های موجود در این مستند عمومی نمونه هستند. قبل از اجرا، آن‌ها را با مقادیر تأییدشده محیط خود جایگزین کنید.</p>
 
 > [!CAUTION]
-> هرگز Private Key، Password، Token، فایل PKCS#12 یا مجموعه گواهی محرمانه را کپی یا منتشر نکنید. این فرایند فقط به گواهی عمومی CA نیاز دارد.
+> <p dir="rtl" align="right">هرگز <span dir="ltr">Private Key</span>، <span dir="ltr">Password</span>، <span dir="ltr">Token</span>، فایل <span dir="ltr">PKCS#12</span> یا مجموعه گواهی محرمانه را کپی یا منتشر نکنید. این فرایند فقط به گواهی عمومی <span dir="ltr">CA</span> نیاز دارد.</p>
 
-## فهرست مطالب
+<a id="table-of-contents"></a>
+<h2 dir="rtl" align="right">فهرست مطالب</h2>
 
-- [مسیرهای Trust Store](#مسیرهای-trust-store)
-- [۱. نصب بسته‌های موردنیاز](#۱-نصب-بستههای-موردنیاز)
-- [۲. بررسی گواهی CA](#۲-بررسی-گواهی-ca)
-- [۳. نصب گواهی CA](#۳-نصب-گواهی-ca)
-- [۴. اعتبارسنجی نصب](#۴-اعتبارسنجی-نصب)
-- [۵. آزمایش یک Endpoint مبتنی بر TLS](#۵-آزمایش-یک-endpoint-مبتنی-بر-tls)
-- [۶. حذف یا جایگزینی گواهی CA](#۶-حذف-یا-جایگزینی-گواهی-ca)
-- [عیب‌یابی](#عیبیابی)
-- [چک‌لیست پذیرش](#چکلیست-پذیرش)
+<ul dir="rtl" align="right">
+  <li><a href="#trust-store-locations">مسیرهای Trust Store</a></li>
+  <li><a href="#install-required-packages">۱. نصب بسته‌های موردنیاز</a></li>
+  <li><a href="#inspect-ca-certificate">۲. بررسی گواهی CA</a></li>
+  <li><a href="#install-ca-certificate">۳. نصب گواهی CA</a></li>
+  <li><a href="#validate-installation">۴. اعتبارسنجی نصب</a></li>
+  <li><a href="#test-tls-endpoint">۵. آزمایش یک Endpoint مبتنی بر TLS</a></li>
+  <li><a href="#remove-replace-ca">۶. حذف یا جایگزینی گواهی CA</a></li>
+  <li><a href="#troubleshooting">عیب‌یابی</a></li>
+  <li><a href="#acceptance-checklist">چک‌لیست پذیرش</a></li>
+</ul>
 
-## مسیرهای Trust Store
+<a id="trust-store-locations"></a>
+<h2 dir="rtl" align="right">مسیرهای <span dir="ltr">Trust Store</span></h2>
 
-| مسیر | کاربرد |
-|---|---|
-| <code>/usr/local/share/ca-certificates/</code> | مسیر مبدأ گواهی‌های CA که به‌صورت محلی مدیریت می‌شوند |
-| <code>/etc/ssl/certs/</code> | لینک‌های تولیدشده سازگار با OpenSSL |
-| <code>/etc/ssl/certs/ca-certificates.crt</code> | مجموعه یکپارچه گواهی‌های CA سیستم‌عامل |
+<table dir="rtl">
+  <thead>
+    <tr>
+      <th align="right">مسیر</th>
+      <th align="right">کاربرد</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td dir="ltr"><code>/usr/local/share/ca-certificates/</code></td>
+      <td align="right">مسیر مبدأ گواهی‌های CA که به‌صورت محلی مدیریت می‌شوند</td>
+    </tr>
+    <tr>
+      <td dir="ltr"><code>/etc/ssl/certs/</code></td>
+      <td align="right">لینک‌های تولیدشده سازگار با OpenSSL</td>
+    </tr>
+    <tr>
+      <td dir="ltr"><code>/etc/ssl/certs/ca-certificates.crt</code></td>
+      <td align="right">مجموعه یکپارچه گواهی‌های CA سیستم‌عامل</td>
+    </tr>
+  </tbody>
+</table>
 
 > [!NOTE]
-> گواهی‌های محلی باید پسوند <code>.crt</code> داشته باشند. در هر فایل فقط یک گواهی CA قرار دهید.
+> <p dir="rtl" align="right">گواهی‌های محلی باید پسوند <code dir="ltr">.crt</code> داشته باشند. در هر فایل فقط یک گواهی <span dir="ltr">CA</span> قرار دهید.</p>
 
-## ۱. نصب بسته‌های موردنیاز
+<a id="install-required-packages"></a>
+<h2 dir="rtl" align="right">۱. نصب بسته‌های موردنیاز</h2>
 
-مطمئن شوید بسته مدیریت گواهی‌های CA سیستم‌عامل و OpenSSL نصب شده‌اند:
+<p dir="rtl" align="right">مطمئن شوید بسته مدیریت گواهی‌های <span dir="ltr">CA</span> سیستم‌عامل و <span dir="ltr">OpenSSL</span> نصب شده‌اند:</p>
 
 ~~~bash
 sudo apt update
 sudo apt install -y ca-certificates openssl
 ~~~
 
-## ۲. بررسی گواهی CA
+<a id="inspect-ca-certificate"></a>
+<h2 dir="rtl" align="right">۲. بررسی گواهی <span dir="ltr">CA</span></h2>
 
-گواهی باید با فرمت PEM باشد و با نشانگرهای زیر شروع و پایان یابد:
+<p dir="rtl" align="right">گواهی باید با فرمت <span dir="ltr">PEM</span> باشد و با نشانگرهای زیر شروع و پایان یابد:</p>
 
 ~~~text
 -----BEGIN CERTIFICATE-----
@@ -57,14 +78,14 @@ sudo apt install -y ca-certificates openssl
 -----END CERTIFICATE-----
 ~~~
 
-بدون نمایش کامل گواهی، خط اول و آخر آن را بررسی کنید:
+<p dir="rtl" align="right">بدون نمایش کامل گواهی، خط اول و آخر آن را بررسی کنید:</p>
 
 ~~~bash
 head -n 1 example-internal-ca.crt
 tail -n 1 example-internal-ca.crt
 ~~~
 
-اطلاعات گواهی را مشاهده کنید:
+<p dir="rtl" align="right">اطلاعات گواهی را مشاهده کنید:</p>
 
 ~~~bash
 openssl x509 \
@@ -78,11 +99,12 @@ openssl x509 \
 ~~~
 
 > [!WARNING]
-> قبل از نصب گواهی، Fingerprint مبتنی بر SHA-256 را از طریق یک کانال قابل‌اعتماد تأیید کنید. صرفاً به‌دلیل صحیح به‌نظر رسیدن نام فایل، به یک گواهی CA اعتماد نکنید.
+> <p dir="rtl" align="right">قبل از نصب گواهی، <span dir="ltr">Fingerprint</span> مبتنی بر <span dir="ltr">SHA-256</span> را از طریق یک کانال قابل‌اعتماد تأیید کنید. صرفاً به‌دلیل صحیح به‌نظر رسیدن نام فایل، به یک گواهی <span dir="ltr">CA</span> اعتماد نکنید.</p>
 
-### تبدیل گواهی DER به PEM
+<a id="convert-der-to-pem"></a>
+<h3 dir="rtl" align="right">تبدیل گواهی <span dir="ltr">DER</span> به <span dir="ltr">PEM</span></h3>
 
-اگر گواهی با فرمت DER است، قبل از نصب آن را تبدیل کنید:
+<p dir="rtl" align="right">اگر گواهی با فرمت <span dir="ltr">DER</span> است، قبل از نصب آن را تبدیل کنید:</p>
 
 ~~~bash
 openssl x509 \
@@ -91,15 +113,16 @@ openssl x509 \
   -out example-internal-ca.crt
 ~~~
 
-گواهی تبدیل‌شده را اعتبارسنجی کنید:
+<p dir="rtl" align="right">گواهی تبدیل‌شده را اعتبارسنجی کنید:</p>
 
 ~~~bash
 openssl x509 -in example-internal-ca.crt -noout -subject -issuer
 ~~~
 
-## ۳. نصب گواهی CA
+<a id="install-ca-certificate"></a>
+<h2 dir="rtl" align="right">۳. نصب گواهی <span dir="ltr">CA</span></h2>
 
-گواهی عمومی CA را با مالکیت و سطح دسترسی مناسب در مسیر گواهی‌های محلی نصب کنید:
+<p dir="rtl" align="right">گواهی عمومی <span dir="ltr">CA</span> را با مالکیت و سطح دسترسی مناسب در مسیر گواهی‌های محلی نصب کنید:</p>
 
 ~~~bash
 sudo install \
@@ -110,13 +133,13 @@ sudo install \
   /usr/local/share/ca-certificates/example-internal-ca.crt
 ~~~
 
-Trust Store سیستم‌عامل را به‌روزرسانی کنید:
+<p dir="rtl" align="right"><span dir="ltr">Trust Store</span> سیستم‌عامل را به‌روزرسانی کنید:</p>
 
 ~~~bash
 sudo update-ca-certificates
 ~~~
 
-خروجی موفق معمولاً مشابه نمونه زیر است:
+<p dir="rtl" align="right">خروجی موفق معمولاً مشابه نمونه زیر است:</p>
 
 ~~~text
 Updating certificates in /etc/ssl/certs...
@@ -126,11 +149,12 @@ done.
 ~~~
 
 > [!NOTE]
-> این دستور مجموعه گواهی‌های CA سیستم را بازسازی کرده و لینک‌های لازم را در مسیر <code>/etc/ssl/certs/</code> ایجاد می‌کند. فایل‌ها را به‌صورت دستی داخل مسیر تولیدشده Trust Store کپی نکنید.
+> <p dir="rtl" align="right">این دستور مجموعه گواهی‌های <span dir="ltr">CA</span> سیستم را بازسازی کرده و لینک‌های لازم را در مسیر <code dir="ltr">/etc/ssl/certs/</code> ایجاد می‌کند. فایل‌ها را به‌صورت دستی داخل مسیر تولیدشده <span dir="ltr">Trust Store</span> کپی نکنید.</p>
 
-## ۴. اعتبارسنجی نصب
+<a id="validate-installation"></a>
+<h2 dir="rtl" align="right">۴. اعتبارسنجی نصب</h2>
 
-گواهی نصب‌شده در مسیر مبدأ را بررسی کنید:
+<p dir="rtl" align="right">گواهی نصب‌شده در مسیر مبدأ را بررسی کنید:</p>
 
 ~~~bash
 openssl x509 \
@@ -143,24 +167,25 @@ openssl x509 \
   -sha256
 ~~~
 
-وجود لینک تولیدشده برای گواهی را بررسی کنید:
+<p dir="rtl" align="right">وجود لینک تولیدشده برای گواهی را بررسی کنید:</p>
 
 ~~~bash
 ls -l /etc/ssl/certs/ | grep 'example-internal-ca'
 ~~~
 
-اطمینان حاصل کنید فرایند به‌روزرسانی گواهی بدون خطا تکمیل می‌شود:
+<p dir="rtl" align="right">اطمینان حاصل کنید فرایند به‌روزرسانی گواهی بدون خطا تکمیل می‌شود:</p>
 
 ~~~bash
 sudo update-ca-certificates --verbose
 ~~~
 
 > [!TIP]
-> Fingerprint مبتنی بر SHA-256 فایل نصب‌شده را با Fingerprint ارائه‌شده توسط مالک گواهی یا مدیر PKI مقایسه کنید.
+> <p dir="rtl" align="right"><span dir="ltr">Fingerprint</span> مبتنی بر <span dir="ltr">SHA-256</span> فایل نصب‌شده را با <span dir="ltr">Fingerprint</span> ارائه‌شده توسط مالک گواهی یا مدیر <span dir="ltr">PKI</span> مقایسه کنید.</p>
 
-## ۵. آزمایش یک Endpoint مبتنی بر TLS
+<a id="test-tls-endpoint"></a>
+<h2 dir="rtl" align="right">۵. آزمایش یک <span dir="ltr">Endpoint</span> مبتنی بر <span dir="ltr">TLS</span></h2>
 
-در مستندات عمومی از یک Endpoint نمونه و غیرحساس استفاده کنید:
+<p dir="rtl" align="right">در مستندات عمومی از یک <span dir="ltr">Endpoint</span> نمونه و غیرحساس استفاده کنید:</p>
 
 ~~~bash
 openssl s_client \
@@ -171,25 +196,26 @@ openssl s_client \
   | grep -E 'Verification|Verify return code'
 ~~~
 
-اگر زنجیره TLS معتبر و مورد اعتماد باشد، باید خروجی مشابه زیر مشاهده شود:
+<p dir="rtl" align="right">اگر زنجیره <span dir="ltr">TLS</span> معتبر و مورد اعتماد باشد، باید خروجی مشابه زیر مشاهده شود:</p>
 
 ~~~text
 Verification: OK
 Verify return code: 0 (ok)
 ~~~
 
-همان Endpoint را با cURL آزمایش کنید:
+<p dir="rtl" align="right">همان <span dir="ltr">Endpoint</span> را با <span dir="ltr">cURL</span> آزمایش کنید:</p>
 
 ~~~bash
 curl -Iv https://service.example.com/
 ~~~
 
 > [!WARNING]
-> نصب گواهی CA مشکلاتی مانند عدم تطابق Hostname، منقضی شدن گواهی، ناقص بودن زنجیره گواهی سرور یا اشتباه بودن ساعت سیستم را برطرف نمی‌کند.
+> <p dir="rtl" align="right">نصب گواهی <span dir="ltr">CA</span> مشکلاتی مانند عدم تطابق <span dir="ltr">Hostname</span>، منقضی شدن گواهی، ناقص بودن زنجیره گواهی سرور یا اشتباه بودن ساعت سیستم را برطرف نمی‌کند.</p>
 
-### بارگذاری مجدد برنامه‌ها
+<a id="reload-applications"></a>
+<h3 dir="rtl" align="right">بارگذاری مجدد برنامه‌ها</h3>
 
-برنامه‌هایی که برای مدت طولانی اجرا می‌شوند ممکن است Trust Store را Cache کنند. پس از اعتبارسنجی نصب CA، فقط سرویس تحت‌تأثیر را Restart کنید:
+<p dir="rtl" align="right">برنامه‌هایی که برای مدت طولانی اجرا می‌شوند ممکن است <span dir="ltr">Trust Store</span> را <span dir="ltr">Cache</span> کنند. پس از اعتبارسنجی نصب <span dir="ltr">CA</span>، فقط سرویس تحت‌تأثیر را <span dir="ltr">Restart</span> کنید:</p>
 
 ~~~bash
 sudo systemctl restart example-service
@@ -197,34 +223,36 @@ sudo systemctl --no-pager status example-service
 ~~~
 
 > [!NOTE]
-> بعضی برنامه‌ها Trust Store مستقل دارند. برنامه‌های Java، مرورگرها، محیط‌های Python مبتنی بر Certifi، کانتینرها و برخی Runtimeها ممکن است به تنظیم جداگانه گواهی نیاز داشته باشند.
+> <p dir="rtl" align="right">بعضی برنامه‌ها <span dir="ltr">Trust Store</span> مستقل دارند. برنامه‌های <span dir="ltr">Java</span>، مرورگرها، محیط‌های <span dir="ltr">Python</span> مبتنی بر <span dir="ltr">Certifi</span>، کانتینرها و برخی <span dir="ltr">Runtime</span>ها ممکن است به تنظیم جداگانه گواهی نیاز داشته باشند.</p>
 
-## ۶. حذف یا جایگزینی گواهی CA
+<a id="remove-replace-ca"></a>
+<h2 dir="rtl" align="right">۶. حذف یا جایگزینی گواهی <span dir="ltr">CA</span></h2>
 
-گواهی CA نصب‌شده به‌صورت محلی را حذف کنید:
+<p dir="rtl" align="right">گواهی <span dir="ltr">CA</span> نصب‌شده به‌صورت محلی را حذف کنید:</p>
 
 ~~~bash
 sudo rm -f /usr/local/share/ca-certificates/example-internal-ca.crt
 ~~~
 
-Trust Store را بازسازی کرده و لینک‌های تولیدشده قدیمی را حذف کنید:
+<p dir="rtl" align="right"><span dir="ltr">Trust Store</span> را بازسازی کرده و لینک‌های تولیدشده قدیمی را حذف کنید:</p>
 
 ~~~bash
 sudo update-ca-certificates --fresh
 ~~~
 
-اطمینان حاصل کنید گواهی دیگر وجود ندارد:
+<p dir="rtl" align="right">اطمینان حاصل کنید گواهی دیگر وجود ندارد:</p>
 
 ~~~bash
 ls -l /etc/ssl/certs/ | grep 'example-internal-ca' || true
 ~~~
 
 > [!CAUTION]
-> حذف یک CA مورد اعتماد می‌تواند بلافاصله ارتباط TLS سرویس‌های وابسته را مختل کند. قبل از حذف یا چرخش گواهی، برنامه‌های تحت‌تأثیر را شناسایی کرده و برای Rollback آماده باشید.
+> <p dir="rtl" align="right">حذف یک <span dir="ltr">CA</span> مورد اعتماد می‌تواند بلافاصله ارتباط <span dir="ltr">TLS</span> سرویس‌های وابسته را مختل کند. قبل از حذف یا چرخش گواهی، برنامه‌های تحت‌تأثیر را شناسایی کرده و برای <span dir="ltr">Rollback</span> آماده باشید.</p>
 
-### جایگزینی CA در آستانه انقضا
+<a id="replace-expiring-ca"></a>
+<h3 dir="rtl" align="right">جایگزینی <span dir="ltr">CA</span> در آستانه انقضا</h3>
 
-از گواهی عمومی موجود نسخه پشتیبان تهیه کنید:
+<p dir="rtl" align="right">از گواهی عمومی موجود نسخه پشتیبان تهیه کنید:</p>
 
 ~~~bash
 sudo cp \
@@ -232,7 +260,7 @@ sudo cp \
   /usr/local/share/ca-certificates/example-internal-ca.crt.bak
 ~~~
 
-گواهی جایگزین تأییدشده را نصب کرده و Trust Store را به‌روزرسانی کنید:
+<p dir="rtl" align="right">گواهی جایگزین تأییدشده را نصب کرده و <span dir="ltr">Trust Store</span> را به‌روزرسانی کنید:</p>
 
 ~~~bash
 sudo install \
@@ -245,13 +273,15 @@ sudo install \
 sudo update-ca-certificates
 ~~~
 
-قبل از حذف نسخه پشتیبان، بررسی Fingerprint و آزمایش Endpoint را دوباره انجام دهید.
+<p dir="rtl" align="right">قبل از حذف نسخه پشتیبان، بررسی <span dir="ltr">Fingerprint</span> و آزمایش <span dir="ltr">Endpoint</span> را دوباره انجام دهید.</p>
 
-## عیب‌یابی
+<a id="troubleshooting"></a>
+<h2 dir="rtl" align="right">عیب‌یابی</h2>
 
-### گواهی نادیده گرفته می‌شود
+<a id="certificate-ignored"></a>
+<h3 dir="rtl" align="right">گواهی نادیده گرفته می‌شود</h3>
 
-پسوند فایل و سطح دسترسی آن را بررسی کنید:
+<p dir="rtl" align="right">پسوند فایل و سطح دسترسی آن را بررسی کنید:</p>
 
 ~~~bash
 find /usr/local/share/ca-certificates \
@@ -260,9 +290,10 @@ find /usr/local/share/ca-certificates \
   -printf '%M %u:%g %f\n'
 ~~~
 
-فایل باید پسوند <code>.crt</code> داشته و فقط شامل یک گواهی PEM باشد.
+<p dir="rtl" align="right">فایل باید پسوند <code dir="ltr">.crt</code> داشته و فقط شامل یک گواهی <span dir="ltr">PEM</span> باشد.</p>
 
-### گواهی قابل خواندن نیست
+<a id="certificate-parse-error"></a>
+<h3 dir="rtl" align="right">گواهی قابل خواندن نیست</h3>
 
 ~~~bash
 openssl x509 \
@@ -271,11 +302,12 @@ openssl x509 \
   -text
 ~~~
 
-اگر این دستور با خطا مواجه شد، فرمت ورودی را بررسی کرده و یک گواهی عمومی CA معتبر را از منبع مجاز دریافت کنید.
+<p dir="rtl" align="right">اگر این دستور با خطا مواجه شد، فرمت ورودی را بررسی کرده و یک گواهی عمومی <span dir="ltr">CA</span> معتبر را از منبع مجاز دریافت کنید.</p>
 
-### Endpoint همچنان مورد اعتماد نیست
+<a id="endpoint-untrusted"></a>
+<h3 dir="rtl" align="right"><span dir="ltr">Endpoint</span> همچنان مورد اعتماد نیست</h3>
 
-زنجیره گواهی ارائه‌شده توسط سرور را بررسی کنید:
+<p dir="rtl" align="right">زنجیره گواهی ارائه‌شده توسط سرور را بررسی کنید:</p>
 
 ~~~bash
 openssl s_client \
@@ -285,28 +317,31 @@ openssl s_client \
   </dev/null
 ~~~
 
-دلایل رایج عبارت‌اند از:
+<p dir="rtl" align="right">دلایل رایج عبارت‌اند از:</p>
 
-- گواهی CA اشتباهی نصب شده است.
-- سرور گواهی Intermediate موردنیاز را ارائه نمی‌کند.
-- Hostname مربوط به Endpoint با گواهی مطابقت ندارد.
-- گواهی منقضی شده یا هنوز معتبر نشده است.
-- برنامه از Trust Store مستقلی استفاده می‌کند.
-- سرویس اطلاعات Cacheشده Trust Store را مجدداً بارگذاری نکرده است.
+<ul dir="rtl" align="right">
+  <li>گواهی <span dir="ltr">CA</span> اشتباهی نصب شده است.</li>
+  <li>سرور گواهی <span dir="ltr">Intermediate</span> موردنیاز را ارائه نمی‌کند.</li>
+  <li><span dir="ltr">Hostname</span> مربوط به <span dir="ltr">Endpoint</span> با گواهی مطابقت ندارد.</li>
+  <li>گواهی منقضی شده یا هنوز معتبر نشده است.</li>
+  <li>برنامه از <span dir="ltr">Trust Store</span> مستقلی استفاده می‌کند.</li>
+  <li>سرویس اطلاعات <span dir="ltr">Cache</span>شده <span dir="ltr">Trust Store</span> را مجدداً بارگذاری نکرده است.</li>
+</ul>
 
-## چک‌لیست پذیرش
+<a id="acceptance-checklist"></a>
+<h2 dir="rtl" align="right">چک‌لیست پذیرش</h2>
 
-- [ ] گواهی فقط شامل اطلاعات عمومی CA است و هیچ Private Key ندارد.
-- [ ] Fingerprint مبتنی بر SHA-256 از طریق یک کانال قابل‌اعتماد تأیید شده است.
-- [ ] گواهی با فرمت PEM است و پسوند <code>.crt</code> دارد.
-- [ ] فایل در مسیر <code>/usr/local/share/ca-certificates/</code> نصب شده است.
-- [ ] دستور <code>update-ca-certificates</code> بدون خطا تکمیل می‌شود.
-- [ ] لینک تولیدشده Trust Store در مسیر <code>/etc/ssl/certs/</code> وجود دارد.
-- [ ] OpenSSL برای Endpoint مقصد مقدار <code>Verify return code: 0 (ok)</code> را گزارش می‌کند.
-- [ ] برنامه تحت‌تأثیر بدون غیرفعال کردن TLS Verification متصل می‌شود.
-- [ ] روش‌های Rollback و چرخش گواهی مشخص و قابل اجرا هستند.
+<ul dir="rtl" align="right">
+  <li>☐ گواهی فقط شامل اطلاعات عمومی <span dir="ltr">CA</span> است و هیچ <span dir="ltr">Private Key</span> ندارد.</li>
+  <li>☐ <span dir="ltr">Fingerprint</span> مبتنی بر <span dir="ltr">SHA-256</span> از طریق یک کانال قابل‌اعتماد تأیید شده است.</li>
+  <li>☐ گواهی با فرمت <span dir="ltr">PEM</span> است و پسوند <code dir="ltr">.crt</code> دارد.</li>
+  <li>☐ فایل در مسیر <code dir="ltr">/usr/local/share/ca-certificates/</code> نصب شده است.</li>
+  <li>☐ دستور <code dir="ltr">update-ca-certificates</code> بدون خطا تکمیل می‌شود.</li>
+  <li>☐ لینک تولیدشده <span dir="ltr">Trust Store</span> در مسیر <code dir="ltr">/etc/ssl/certs/</code> وجود دارد.</li>
+  <li>☐ <span dir="ltr">OpenSSL</span> برای <span dir="ltr">Endpoint</span> مقصد مقدار <code dir="ltr">Verify return code: 0 (ok)</code> را گزارش می‌کند.</li>
+  <li>☐ برنامه تحت‌تأثیر بدون غیرفعال کردن <span dir="ltr">TLS Verification</span> متصل می‌شود.</li>
+  <li>☐ روش‌های <span dir="ltr">Rollback</span> و چرخش گواهی مشخص و قابل اجرا هستند.</li>
+</ul>
 
 > [!IMPORTANT]
-> در محیط Production هرگز برای رفع خطای Trust، بررسی TLS را غیرفعال نکنید. زنجیره صحیح CA را نصب کرده و مشکل اصلی گواهی یا تنظیمات سرور را برطرف کنید.
-
-</div>
+> <p dir="rtl" align="right">در محیط <span dir="ltr">Production</span> هرگز برای رفع خطای <span dir="ltr">Trust</span>، بررسی <span dir="ltr">TLS</span> را غیرفعال نکنید. زنجیره صحیح <span dir="ltr">CA</span> را نصب کرده و مشکل اصلی گواهی یا تنظیمات سرور را برطرف کنید.</p>
