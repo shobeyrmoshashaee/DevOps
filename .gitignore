@@ -1,0 +1,47 @@
+# Secrets and environment files
+.env
+.env.*
+!.env.example
+secrets/
+credentials/
+*.secret
+*.token
+
+# Certificates and keys
+*.key
+*.pem
+*.p12
+*.pfx
+*.jks
+*.keystore
+id_rsa*
+id_ed25519*
+
+# Kubernetes credentials
+kubeconfig
+kubeconfig.*
+*.kubeconfig
+
+# Terraform state
+*.tfstate
+*.tfstate.*
+.terraform/
+
+# Ansible secrets
+vault-password*
+*.vault
+
+# Archives and backups
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+*.bak
+*.backup
+
+# Local and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
