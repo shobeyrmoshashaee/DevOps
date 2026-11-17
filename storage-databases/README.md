@@ -17,11 +17,12 @@ This area contains storage and database engineering projects focused on availabi
 
 | Project | Installation Method | Description |
 |---|---|---|
-| [Kubernetes NFS Dynamic Provisioning](./kubernetes-nfs-subdir-provisioner-helm/) | Helm | NFS server preparation, official NFS Subdirectory External Provisioner chart, StorageClass, PVC testing, and operations |
+| [Kubernetes NFS Dynamic Provisioning](./kubernetes-nfs-subdir-provisioner-helm/) | Helm | NFS server preparation, official Helm chart, StorageClass, PVC testing, and operations |
+| [Kubernetes NFS Dynamic Provisioning](./kubernetes-nfs-subdir-provisioner-deployment/) | Deployment / Kustomize | NFS server preparation, RBAC, patched provisioner Deployment, StorageClass, PVC and workload testing |
 
 ## Project Organization
 
 Each storage project uses an independent subdirectory with a dedicated README, sanitized source files, deployment instructions, validation, troubleshooting, and operational guidance.
 
 > [!NOTE]
-> The future manifest-based NFS provisioner project will be documented separately and clearly labeled as the **Deployment-based** installation method.
+> The Helm-based and Deployment-based projects are maintained separately so their installation, upgrade, rollback, and troubleshooting procedures do not get mixed.
