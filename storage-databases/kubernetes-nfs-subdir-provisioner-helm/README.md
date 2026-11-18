@@ -1,3 +1,8 @@
+<p align="center">
+  <strong>English</strong> |
+  <a href="./README.fa.md">فارسی</a>
+</p>
+
 # 📦 Kubernetes NFS Dynamic Provisioning with Helm
 
 This project configures an Ubuntu or Debian NFS server and installs the Kubernetes NFS Subdirectory External Provisioner through its official Helm chart.
