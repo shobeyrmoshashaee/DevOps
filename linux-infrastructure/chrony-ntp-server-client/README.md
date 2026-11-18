@@ -1,3 +1,8 @@
+<p align="center">
+  <strong>English</strong> |
+  <a href="./README.fa.md">فارسی</a>
+</p>
+
 # 🕒 Enterprise Chrony NTP Server and Client Setup
 
 A production-oriented guide for deploying two redundant internal Chrony servers and configuring Linux clients to use them as centralized time sources.
