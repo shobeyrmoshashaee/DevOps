@@ -1,3 +1,8 @@
+<p align="center">
+  <strong>English</strong> |
+  <a href="./README.fa.md">فارسی</a>
+</p>
+
 # 🔒 Certbot SSL Certificate Automation for HAProxy
 
 A practical Ubuntu and Debian guide for issuing wildcard certificates with DNS verification, preparing HAProxy-compatible PEM bundles, automating DNS-01 validation through Cloudflare, and reloading HAProxy safely after renewal.
