@@ -1,3 +1,8 @@
+<p align="center">
+  <strong>English</strong> |
+  <a href="./README.fa.md">فارسی</a>
+</p>
+
 # 🔒 Certbot SSL Certificate Automation for Nginx
 
 A practical Ubuntu and Debian guide for installing Certbot, issuing wildcard certificates with DNS verification, integrating certificates with Nginx, and automating DNS-01 validation through Cloudflare.
